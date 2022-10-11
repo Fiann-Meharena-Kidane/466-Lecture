@@ -14,7 +14,7 @@ nrow(sales)
 ncol(sales)
 
 
-#rnorm() function in R programming is used to generate a vector of
+#rnorm()?function in R programming is used to generate a vector of
 #random numbers which are normally distributed.
 #We need to provide the rnorm() function with the number of values 
 #that needs to be generated. Further, the mean and variance values are optional.
@@ -33,6 +33,7 @@ ncol(sales)
 
 x <- rnorm(50) 
 x
+
 y <- x + rnorm(50, mean=0, sd=0.5)
 y
 
@@ -92,10 +93,12 @@ theme_set(theme_bw()) # set plot color theme
 #fullrange: Should the fit span the full range of the plot, or just the data?
 #create Faceted Line Graph using facet_wrap() function
 
+
 ggplot(mydata, aes(x,y)) +
   geom_point(size=2) +
   geom_smooth(method="lm", fill=NA, fullrange=TRUE) +
   facet_wrap(~mygroup)
+
 
 
 # Each dataset is plotted as a scatterplot, and the fitted lines are the 

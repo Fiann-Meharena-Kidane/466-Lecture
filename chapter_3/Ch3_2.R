@@ -14,6 +14,8 @@ typeof(sport)               # returns "character"
 class(flag)                 # returns "logical"
 typeof(flag)                # returns "logical"
 
+x=-5
+class(x)
 is.integer(i)               # returns FALSE
 j <- as.integer(i)          # coerces contents of i into an integer
 is.integer(j)               # returns TRUE
@@ -37,6 +39,8 @@ u[2]
 
 v <- 1:5                        # create a vector 1 2 3 4 5
 v                               # returns 1 2 3 4 5
+length(v)
+
 x = 30:71
 x
 m <- seq(2,18,3)
@@ -44,8 +48,10 @@ m
 
 m2=rep(2,5)
 m2
+
 a=sum(v)                          
 b=mean(v)
+
 v <- 1:5                        
 w <- v * 2                      # create a vector 2 4 6 8 10
 w                               # returns 2 4 6 8 10
@@ -82,7 +88,7 @@ length(b)
 
 # Arrays and Matrices
 
-quarterly_sales <- array(9, dim=c(5,4))
+quarterly_sales <- array(9,dim=c(5,4))
 quarterly_sales
 quarterly_sales[3,4] <- 15
 quarterly_sales
@@ -99,7 +105,7 @@ library(matrixcalc)
 
 K=c(1,3,3,5,0,4,3,3,3)
 K
-M <- matrix(c(1,3,3,5,0,4,3,3,3),nrow = 3,ncol = 3) # build a 3x3 matrix
+M <- matrix(K,nrow = 3,ncol = 3) # build a 3x3 matrix
 M
 Y <- matrix.inverse(M)
 Y
@@ -121,6 +127,7 @@ t
 sales <- read.csv("C:/R Codes/Ch3/yearly_sales.csv")
 sales
 is.data.frame(sales)              # returns TRUE
+is.data.frame(sales)
 
 x=sales$num_of_orders
 x
@@ -131,6 +138,7 @@ is.vector(sales$sales_total)      # returns TRUE
 is.vector(sales$num_of_orders)    # returns TRUE
 is.vector(sales$gender)           
 
+is.vector(sales$num_of_orders)
 summary(sales)
 
 w=min(sales$sales_total)
@@ -147,6 +155,7 @@ sales[,c(1,2,3)]
 
 p= sales[,4]
 p
+
 x=sales[4,]
 y=sales[1,2]
 
@@ -170,21 +179,25 @@ sales[,seq(2,4,1)]
 
 f=sales[,c(2,4)]
 f
+
 str(f)
 summary(f)
 s=mean(f$sales_total)
-
+s
 
 seq(1,3,1)
 
 sales[seq(2,10,3),]
 sales[seq(2,10,3),]
+
+
 # retrieve both the cust_id and the sales_total columns
 sales[,c("cust_id", "sales_total")]
 sales[2:5,c("num_of_orders","gender", "sales_total")]
 
 # retrieve all the records whose gender is female
 sales[sales$gender=="F",]
+
 
 # retrieve all the records whose sales_total greater than 1200 
 h=sales[sales$sales_total > 1200 ,] 
@@ -204,11 +217,13 @@ assortment
 L2=list(3,4,1,8,90,seq(3,10,2),2:6)
 L2
 length(L2)
-
+V 
+M 
 # examine the fifth object, M, in the list
 class(assortment[5])               # returns "list"
 length(assortment[5])              # returns 1
 class(assortment[[5]])             # returns "matrix"
+length(assortment[[ 5 ]])          # returns "matrix"
 length(assortment[[5]])            # returns 9 (for the 3x3 matrix)
 
 str(assortment)
@@ -217,18 +232,31 @@ str(assortment)
 #  Descriptive Statistics
 ##########################################
 
-#Covariance is a statistical term used to measures the direction of the linear relationship between the data vectors
-#Correlation is a relationship term in statistics that uses the covariance method to measure how strong the vectors are related
-#correlation of 1 indicates the data points perfectly lie on a line for which Y increases as X increases. A value of -1 also implies the data points lie on a line; however, Y decreases as X increases.
-# 
+#Covariance is a statistical term used to measures the direction of the linear 
+#relationship between the data vectors
 
-# Exactly -1. A perfect (negative) linear relationship, -0.70. A strong (negative) linear relationship, -0.50. A moderate (negative) relationship, -0.30. A weak (negative) linear relationship
+#Correlation is a relationship term in statistics that uses the covariance method to measure 
+# how strong the vectors are related
+
+#correlation of 1 indicates the data points perfectly lie on a line 
+#for which Y increases as X increases. A value of -1 also implies the data points 
+#lie on a line; however, Y decreases as X increases.
+#
+
+# Exactly -1. A perfect (negative) linear relationship, -0.70. A strong (negative) linear 
+#relationship, -0.50. A moderate (negative) relationship, -0.30. A weak (negative) 
+#linear relationship
 #0. No linear relationship
-# +0.30. A weak (positive) linear relationship, +0.50. A moderate (positive) relationship, +0.70. A strong (positive) linear relationship, Exactly +1. A perfect (positive) linear relationship
+
+# +0.30. A weak (positive) linear relationship, +0.50. A moderate (positive) 
+#relationship, +0.70. A strong (positive) linear relationship, 
+#Exactly +1. A perfect (positive) linear relationship
+
 
 #The IQR function computes the Interquartile Range of a numeric input vector.
 #IQR() function in R Language is used to calculate the interquartile range of a data set
-#IQR = Q3 - Q1 where, Q3 specifies the median of n largest values Q1 specifies the median of n smallest values
+#IQR = Q3 - Q1 where, Q3 specifies the median of n largest values Q1 specifies 
+#the median of n smallest values
 
 #median(): It is the middle value of the data set. It splits the data into two halves. If the number of elements in the data set is odd then the center element is median and if it is even then the median would be the average of two central elements.
 #sd(): function is used to compute the standard deviation of given values in R. It is the square root of its variance
@@ -238,6 +266,9 @@ str(assortment)
 #MARGIN=2 indicates columns or rows 
 #For example 1 indicates rows 2 indicates columns
 #Fun: is the function to be applied
+
+
+head(sales,5)
 apply(sales[,c(1:3)], MARGIN=2, FUN=sd)
 apply(sales[,c(1:3)], MARGIN=2, FUN=mean)
 x <- sales$sales_total
@@ -264,6 +295,7 @@ library(ggplot2)
 data(diamonds)            # load the data frame into the R workspace
 str(diamonds)
 
+diamonds
 head(diamonds$cut)        # display first six values and the levels
 
 
@@ -272,14 +304,27 @@ sales_group <- vector(mode="character",
                       length=length(sales$sales_total))
 sales_group
 # group the customers according to the sales amount
+
 sales_group[sales$sales_total<100] <- "small"
+sales_group
+
 sales_group[sales$sales_total>=100 & sales$sales_total<500] <- "medium"
+sales_group
+
 sales_group[sales$sales_total>=500] <- "big"
+sales_group
+
 str(sales_group)
+
+
 # create and add the ordered factor to the sales data frame
 spender <- factor(sales_group,levels=c("small", "medium", "big"),
                   ordered = TRUE)
+
+
+sales 
 str(spender)
+
 sales <- cbind(sales,spender)
 sales
 str(sales)
@@ -299,6 +344,7 @@ three
 x=c(1,2,3)
 y=c(4,5,6)
 cbind(x, y)
+
 
 d1=as.data.frame(cbind(x,y))
 d1

@@ -3,7 +3,7 @@
 setwd("C:/R Codes/Ch3")
 
 # import a csv file of the total annual sales for each customer
-sales <- read.csv("yearly_sales.csv")
+sales <- read.csv(file.choose())
 sales
 str(sales)
 #sales_table <- read.table("yearly_sales.txt", header=TRUE, sep=",")

@@ -110,6 +110,7 @@ cpi2011
 #------------Example 4--------------------
 
 income_input = read.csv("c:/R Codes/Ch6/income.csv")
+income_input=read.csv(file.choose())
 income_input
 
 
@@ -121,6 +122,7 @@ summary(income_input)
 
 names(income_input)
 
+
 results <- lm(Income ~ Age + Education + Gender, income_input)
 results
 
@@ -129,22 +131,28 @@ results
 
 summary(results)
 
-results2 <- lm(Income ~ Age + Education, income_input)
+results2 <- lm(Income ~ Age + Education, income_input) # training phase, 
 results2 
-summary(results2)
+summary(results2) 
+
+
+# Income= 6.758 + 0.996*Age + 1.759*Education 
+
 
 #Income = B0 + B1*Age + B2*Education
 
-# compute the expected income of a person with 
+# compute the expected income of a person with age==41 and Education==12, 
 
+# create first a data frame, 
 Age <- 41
 Education <- 12
 new_pt <- data.frame(Age, Education)
 new_pt
 
 
-new1 <- predict(results2, new_pt)
+new1 <- predict(results2, new_pt)  # testing phase, 
 new1 
+
 
 results2$coefficients[[2]]
 #Income = B0 + B1*Age + B2*Education

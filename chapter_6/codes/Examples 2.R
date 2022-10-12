@@ -1,11 +1,14 @@
 #------------Example 5--------------------
 
 ageandheight =  read.csv("c:/R Codes/Ch6/age_height.csv") 
+ageandheight=read.csv(file.choose())
 ageandheight
 
-lmHeight = lm(height ~ age, data = ageandheight) #Create the linear regression
+
+lmHeight = lm(height ~ age + no_siblings, data = ageandheight) #Create the linear regression
 lmHeight
 # height = 64.928 + 0.635 * age
+
 
 summary(lmHeight) #Review the results
 
@@ -21,7 +24,6 @@ no_siblings <- 2
 new_pt <- data.frame(age, no_siblings)
 new_pt
 
-
 new1 <- predict(lmHeight2, new_pt)
 new1 
 
@@ -29,7 +31,9 @@ new1
 #------------Example 6--------------------
 
 
+
 hw =  read.csv("c:/R Codes/Ch6/height_weight.csv")
+hw=read.csv(file.choose())
 hw
 relation <- lm(weight~height, hw)
 relation
@@ -74,6 +78,7 @@ plot(x,y,col = "blue",main = "Height & Weight Regression", abline(lm(y~x)),cex =
 #Root Mean Squared Error (RMSE), which measures the average error performed by the model 
 #in predicting the outcome for an observation. 
 
+
 #The lower the RMSE, the better the model.
 #low RMSE means high accuracy
 
@@ -91,16 +96,22 @@ plot(x,y,col = "blue",main = "Height & Weight Regression", abline(lm(y~x)),cex =
 install.packages( "Metrics" )
 library(Metrics)
 
+
 # Taking two vectors
 actual = c(1.5, 1.0, 2.0, 7.4, 5.8, 6.6)		
 predicted = c(1.0, 1.1, 2.5, 7.3, 6.0, 6.2)	
+predicted2 = c(1.1, 0.1, 3.5, 5.3, 7.0, 6.2)	
+
 
 # Calculating RMSE using rmse()		
 result = rmse(actual, predicted)
+result2=rmse(actual, predicted2)
+
+result
+result2
 
 # Printing the value
 print(result)	
-
 
 
 
@@ -108,32 +119,46 @@ print(result)
 # import the salary dataset
 dataset <- read.csv(file.choose())
 
+
 # check the dataset
 str(dataset)
 head(dataset)
 
 
-
 # split salary data into training and testing sets
+install.packages('caTools')
 library(caTools)
+
+dataset
 set.seed(25)
-split = sample.split(dataset$Salary, SplitRatio = 0.8)
+
+# divide data into training and testing 
+split = sample.split(dataset$Salary, SplitRatio = 0.8) # salary== output , 80% training and 20% testing 
+split
+
+
 train_set = subset(dataset, split == TRUE)
+train_set
+
 test_set = subset(dataset, split == FALSE)
+test_set
 
 
 # Build L1 model based on training part of the dataset
 L1 = lm(formula = Salary ~ YearsExperience, data = train_set)
+L1
 summary(L1)
+
+
 # predict L1 model based on the testing part of the dataset
 predicted = predict(L1, newdata = test_set)
 predicted
+
 
 actual_salary = test_set$Salary
 predictd_salary = predicted
 difference = actual_salary - predicted
 actual_vs_predicted <- data.frame(cbind(actual_salary , predictd_salary , difference  ))
-
 
 actual_vs_predicted
 

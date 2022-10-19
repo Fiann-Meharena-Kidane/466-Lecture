@@ -1,26 +1,35 @@
 
+
 #The method = "class" argument (it's the third one) tells rpart() that this is a classification tree
 library(datasets)
+install.packages('party')
 library(party)
 library(caTools)
 library("rpart")
 library("rpart.plot")
-library('FSelector')
+install.packages('FSelector')
+library('FSelector')  # apply feature selection function
 
 
 iris
 head(iris)
-str(iris)
-set.seed(9)
-iris$Species= as.factor(iris$Species)
-iris$Species
-str(iris)
-split = sample.split(iris$Species,SplitRatio = 0.75) # 75 of the rows for training and 25% of the rows for testing
-split
-trainData = subset(iris, split == TRUE)
-trainData
 
+str(iris)
+set.seed(9)  # generate same training and testing data, 
+
+iris$Species= as.factor(iris$Species)  
+iris$Species
+
+str(iris)
+str(iris$Species)
+
+split = sample.split(iris$Species,SplitRatio = 0.75) # 75 of the rows for training and 25% of the rows for testing
+split  # split em randomly into traing and testing
+
+trainData = subset(iris, split == TRUE)
+trainData  # if value==True, set it as training
 nrow(trainData)
+
 testData = subset(iris, split == FALSE)
 testData
 head(testData)
@@ -29,6 +38,8 @@ head(testData)
 nrow(testData)
 names(iris)
 model1 <- rpart(Species ~ Sepal.Length + Sepal.Width + Petal.Length + Petal.Width,method="class", data=trainData)
+# class means ' classification ' 
+
 
 rpart.plot(model1, type=3, extra=1)
 testData
@@ -37,19 +48,24 @@ test2=testData
 test2
 test2$Species=NULL
 test2
+
 # Predicting the Test set results
 y_pred1 = predict(model1, newdata = testData[,-5], type = 'class')
 y_pred1
+
 # Making the Confusion Matrix
 testData
 testData[, 5]
 
 cm1 = table(testData[, 5], y_pred1)
-cm1
+cm1 # actual == row, predicted = columns, 
+# Eg. 12 setosa from training set were classified as setosa (100%)
 
 #Determining the accuracy of the model developed 
+
 sum(diag(cm1))
 sum(cm1)
+
 ac_Test1 <- sum(diag(cm1)) / sum(cm1)
 print(paste('Accuracy for test is found to be', ac_Test1))
 
@@ -60,9 +76,11 @@ names(iris)
 iris$Species= as.factor(iris$Species)
 split = sample.split(iris$Species,SplitRatio = 0.5)
 
+
 trainData = subset(iris, split == TRUE)
 trainData
 nrow(trainData)
+
 testData = subset(iris, split == FALSE)
 testData
 nrow(testData)
@@ -102,12 +120,12 @@ trainData
 testData = subset(iris, split == FALSE)
 testData
 
-res2 <- cfs(Species~.,trainData)
+
+res2 <- cfs(Species~.,trainData) # correlation feature selections
 res2
 
 res1 <- gain.ratio(Species~.,trainData)
 res1
-
 
 res3 <- chi.squared(Species~.,trainData)
 res3

@@ -12,13 +12,16 @@ plot(Java1, Java2)
 
 fit <- lm(Java2 ~ Java1)
 fit
+
 #Java2 = c0 + c1 * Java1
 #Y = c0 + c1*x1
 #Java2 = 26.7808 + 0.6438 * Java1
+
 fit$coefficients
 
-fit$coefficients[[1]]
-fit$coefficients[[2]]
+fit$coefficients[[1]]  # intercept,   
+fit$coefficients[[2]]  # coefficient,
+
 #Java2 = 26.7808 + 0.6438 * Java1
 
 # new student with Java1 grade is 80 find Java2
@@ -26,8 +29,12 @@ java2_ <- fit$coefficients[[1]] + fit$coefficients[[2]]*80
 
 java2_ 
 
-a <- data.frame(Java1 = 80)
-a
+
+a <- data.frame(Java1 = 80) # create data frame, 
+a 
+
+
+
 result <-  predict(fit,a)
 result
 
@@ -95,6 +102,7 @@ fit$coefficients[[2]]
 fit$coefficients[[3]]
 
 # cpi = C0 + C1*year + C2*quarter
+
 
 cpi2011 <- fit$coefficients[[1]] + fit$coefficients[[2]]*2011 + fit$coefficients[[3]]*(1:4)
 cpi2011

@@ -1,5 +1,6 @@
 #install.packages("rpart.plot")
-library("rpart") # load libraries
+
+install.packages("rpart.plot") # load libraries
 library("rpart.plot")
 
 # Read the data

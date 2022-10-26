@@ -6,13 +6,13 @@ library("rpart.plot")
 library('FSelector')
 
 
-
 dataset = read.csv('C:/R Codes/Ch7/bank-sample.csv')
+dataset = read.csv(file.choose())
 head(dataset)
 
 nrow(dataset)
-
 set.seed(123)
+
 str(dataset)
 dataset$job=as.factor(dataset$job)
 dataset$marital=as.factor(dataset$marital)
@@ -25,6 +25,8 @@ dataset$month=as.factor(dataset$month)
 dataset$poutcome=as.factor(dataset$poutcome)
 dataset$subscribed = as.factor(dataset$subscribed )
 dataset$subscribed
+
+str()
 
 split = sample.split(dataset$subscribed,SplitRatio = 0.7)
 
@@ -46,7 +48,7 @@ model7 <- rpart(subscribed ~ duration+poutcome+pdays+previous+month,method="clas
 rpart.plot(model7, type=2, extra=1)
 
 names(testData)
-testData=testData[,c(12,16,14,15,11,17)]
+testData=testData[,c(12,16,14,15,9,17)]
 head(testData)
 
 

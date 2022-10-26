@@ -2,13 +2,13 @@
 
 #The method = "class" argument (it's the third one) tells rpart() that this is a classification tree
 library(datasets)
-install.packages('party')
 library(party)
 library(caTools)
 library("rpart")
 library("rpart.plot")
 install.packages('FSelector')
 library('FSelector')  # apply feature selection function
+install.packages('party')
 
 
 iris
@@ -143,6 +143,7 @@ testData
 
 model3 <- ctree(Species ~ Petal.Length + Petal.Width, data=trainData)
 plot(model3)
+
 # predict on test data
 names(testData)
 testData=testData[,3:5]
@@ -184,6 +185,7 @@ testData=testData[,c(1,2,5)]
 testData
 y_pred4 = predict(model4, newdata = testData[,-3])
 y_pred4
+
 # Making the Confusion Matrix
 cm4 = table(testData$Species, y_pred4)
 cm4
@@ -196,6 +198,7 @@ print(paste('Accuracy for test is found to be', ac_Test4))
 
 
 dataset = read.csv('C:/R Codes/Ch7/Iris.csv')
+dataset= read.csv(file.choose())
 head(dataset)
 str(dataset)
 dataset$Species= as.factor(dataset$Species)
@@ -205,6 +208,7 @@ set.seed(123)
 
 split = sample.split(dataset$Species,SplitRatio = 0.75)
 split
+
 
 trainData = subset(dataset, split == TRUE) # 0.75 Train
 trainData
@@ -242,6 +246,7 @@ print(paste('Accuracy for test is found to be', ac_Test5))
 # Importing the dataset
 
 dataset = read.csv('C:/R Codes/Ch7/Advertisement.csv')
+dataset= read.csv(file.choose())
 head(dataset, 10)
 #dataset$User.ID=NULL
 #dataset
@@ -268,8 +273,8 @@ test_set = subset(data1, split == FALSE)
 # to the Training set
 
 classifier = rpart( Purchased ~ .,method="class",data = training_set)
-
 test_set[,-4]
+
 #Testing Phase
 # Predicting the Test set results
 y_pred = predict(classifier, type ="class",newdata = test_set[,-4])
@@ -286,6 +291,7 @@ print(paste('Accuracy for test is found to be', ac_Test))
 #------------------------------------------------
 
 dataset = read.csv('C:/R Codes/Ch7/Iris.csv')
+dataset= read.csv(file.choose())
 head(dataset)
 
 split = sample.split(dataset$Species,SplitRatio = 0.75)
